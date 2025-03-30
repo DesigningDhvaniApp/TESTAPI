@@ -1,8 +1,7 @@
+import { globalErrorHandler } from "#middleware/globalErrorHandler";
+import { storyBoardRoutes } from "#routes/stories.routes";
 import cors from "cors";
 import express from "express";
-
-import { globalErrorHandler } from "./middleware/globalErrorHandler";
-import storyBoardRoutes from "./routes/stories.routes";
 
 const app = express();
 

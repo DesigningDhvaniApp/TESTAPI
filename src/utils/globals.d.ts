@@ -1,0 +1,7 @@
+// globals.d.ts
+declare global {
+  var __dirname: string;
+  var __filename: string;
+}
+
+export {};

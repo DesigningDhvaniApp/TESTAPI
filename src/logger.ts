@@ -1,33 +1,9 @@
-import * as fs from "fs";
 import { DateTime } from "luxon";
-import * as path from "path";
 import * as winston from "winston";
-
-// Base logs directory
-const baseLogsDir = path.join(__dirname, "logs");
-
-// Helper to generate the folder name based on the date range
-const generateFolderName = () => {
-  const now = DateTime.local();
-  const startDate = now.minus({ days: 13 }).toFormat("yyyyMMdd");
-  const endDate = now.toFormat("yyyyMMdd");
-  return `${startDate}_${endDate}`;
-};
-
-// Ensure folder for the date range exists
-const folderName = generateFolderName();
-const logsDir = path.join(baseLogsDir, folderName);
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true });
-}
+import "#utils/globals";
 
 // Define logger
 const Logger = winston.createLogger({
-  exceptionHandlers: [
-    new winston.transports.File({
-      filename: path.join(logsDir, "errors.log"), // Unhandled exceptions
-    }),
-  ],
   format: winston.format.combine(
     winston.format.timestamp({
       format: () => DateTime.local().toFormat("yyyy-MM-dd HH:mm:ss"),
@@ -40,22 +16,8 @@ const Logger = winston.createLogger({
     }),
   ),
   level: "info",
-  rejectionHandlers: [
-    new winston.transports.File({
-      filename: path.join(logsDir, "errors.log"), // Unhandled promise rejections
-    }),
-  ],
   transports: [
-    new winston.transports.File({
-      filename: path.join(logsDir, "logs.log"), // General logs
-      level: "info",
-    }),
-    new winston.transports.File({
-      filename: path.join(logsDir, "errors.log"), // Error logs
-      level: "error",
-    }),
     new winston.transports.Console({
-      // Add Console transport
       format: winston.format.combine(
         winston.format.colorize(), // Add colors for console output
         winston.format.printf(({ level, message, timestamp, ...meta }) => {

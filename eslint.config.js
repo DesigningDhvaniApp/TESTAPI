@@ -6,7 +6,12 @@ import perfectionist from "eslint-plugin-perfectionist";
 
 export default tseslint.config(
   {
-    ignores: ["**/*.js"],
+    ignores: [
+      "**/*.js",
+      "dist/**", // Ignore dist folder
+      "node_modules/**", // Ignore node_modules
+      "**/*.d.ts",
+    ],
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,

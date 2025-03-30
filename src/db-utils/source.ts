@@ -1,5 +1,5 @@
-import config from "#config/index.ts";
-import Logger from "#logger.ts";
+import config from "#config/index";
+import Logger from "#logger";
 import mongoose from "mongoose";
 
 export const ConnectToDataSource = async (): Promise<void> => {

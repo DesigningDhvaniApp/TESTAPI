@@ -2,11 +2,48 @@
   "extends": "@tsconfig/node23/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./",
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
-    "declaration": true
+    "rootDir": "./src",
+    "declaration": true, // ✅ Keep to generate .d.ts
+    "emitDeclarationOnly": false, // ✅ Emit .js and .d.ts
+    "module": "ESNext", // ✅ Use modern module system
+    "target": "ES2022", // ✅ Use modern JS target
+    "moduleResolution": "node", // ✅ Use node-style resolution
+    "baseUrl": "./",
+    "paths": {
+      "#*": ["./src/*"] // ✅ Enable path aliases,
+    },
+    "esModuleInterop": true, // ✅ Required for lodash
+    "skipLibCheck": true, // ✅ Skip checking .d.ts files
+    "resolveJsonModule": true // ✅ Optional if importing JSON
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
   },
   "include": ["**/*.ts"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "node_modules"]
 }
+
+// {
+//   "compilerOptions": {
+//     "outDir": "./dist",
+//     "rootDir": "./src",
+//     "module": "ESNext",
+//     "target": "ES2022",
+//     "moduleResolution": "node",
+//     "baseUrl": "./",
+//     "paths": {
+//       "#*": ["./src/*"]
+//     },
+//     "esModuleInterop": true,
+//     "skipLibCheck": true,
+//     "allowJs": true,
+//     "resolveJsonModule": true
+//   },
+//   "tsc-alias": {
+//     "resolveFullPaths": true,
+//     "verbose": false
+//   },
+//   "include": ["src/**/*.ts"],
+//   "exclude": ["dist", "node_modules"]
+// }

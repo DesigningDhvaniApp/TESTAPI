@@ -1,4 +1,4 @@
-import { IStory, Story } from "#models/Story.ts";
+import { IStory, Story } from "#models/Story";
 
 export const saveStory = async (storyData: Partial<IStory>) => {
   const story: IStory = new Story(storyData);

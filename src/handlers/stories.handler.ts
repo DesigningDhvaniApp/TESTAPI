@@ -1,4 +1,4 @@
-import { IStory, Story } from "#models/Story.ts";
+import { IStory, Story } from "#models/Story";
 
 export const createStoryHandler = async (input: Partial<IStory>) => {
   input.storyId = 87954985;

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError, ZodTypeAny } from "zod";
 
-import { BadRequestError } from "../utils/errors/AppError";
+import { BadRequestError } from "../utils/AppError";
 
 export function ZodBodyValidator(schema: ZodTypeAny) {
   return (req: Request, res: Response, next: NextFunction) => {

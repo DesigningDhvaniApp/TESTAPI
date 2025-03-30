@@ -1,6 +1,7 @@
+import { ConnectToDataSource } from "#db-utils/source";
+
 import app from "./app";
 import config from "./config";
-import { ConnectToDataSource } from "./db-utils/source";
 import Logger from "./logger";
 
 const PORT = process.env.PORT ?? config.API_PORT;

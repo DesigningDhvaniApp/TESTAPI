@@ -1,6 +1,6 @@
-import { isEqual } from "lodash";
-
 // import dotenv from "dotenv";
+import { isEqual } from "lodash-es";
+
 import Logger from "../logger";
 import { devEnv } from "./dev";
 import { prodEnv } from "./prod";

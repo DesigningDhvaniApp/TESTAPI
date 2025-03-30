@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { isEmpty } from "lodash";
+import { isEmpty } from "lodash-es";
 
 import Logger from "../logger";
-import { ApiError } from "../utils/errors/AppError";
+import { ApiError } from "../utils/AppError";
 
 export const globalErrorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
   const statusCode = err instanceof ApiError ? err.statusCode : StatusCodes.INTERNAL_SERVER_ERROR;

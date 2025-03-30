@@ -1,5 +1,5 @@
-import { createStoryHandler, findAllStories, updateStoryHandler } from "#handlers/stories.handler.ts";
-import { IStory } from "#models/Story.ts";
+import { createStoryHandler, findAllStories, updateStoryHandler } from "#handlers/stories.handler";
+import { IStory } from "#models/Story";
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
