@@ -1,9 +1,11 @@
+import { createStory, getAllStories, updateStory } from "#controllers/stories.controller.ts";
 import { Router } from "express";
-import { createStory, getAllStories, updateStory } from "../controllers/stories.controller";
+
+import asyncHandler from "./asyncHanlder";
 const router = Router();
 
-router.post("/", createStory);
-router.get("/", getAllStories);
-router.put("/:id", updateStory);
+router.post("/", asyncHandler(createStory));
+router.get("/", asyncHandler(getAllStories));
+router.put("/:id", asyncHandler(updateStory));
 
 export default router;

@@ -1,0 +1,11 @@
+2025-03-30 10:20:20 [INFO]: dev 
+2025-03-30 10:20:21 [INFO]: Mongo Data Source Connected! 
+2025-03-30 10:20:21 [INFO]: Listening on http://localhost:3001 
+2025-03-30 10:20:32 [INFO]: prod 
+2025-03-30 10:20:32 [ERROR]: MongoDB connection error: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://" {
+  "stack": "MongoParseError: Invalid scheme, expected connection string to start with \"mongodb://\" or \"mongodb+srv://\"\n    at new ConnectionString (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/node_modules/mongodb-connection-string-url/src/index.ts:133:13)\n    at parseOptions (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/node_modules/mongodb/src/connection_string.ts:261:15)\n    at new MongoClient (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/node_modules/mongodb/src/mongo_client.ts:387:32)\n    at NativeConnection.createClient (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/node_modules/mongoose/lib/drivers/node-mongodb-native/connection.js:328:14)\n    at NativeConnection.openUri (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/node_modules/mongoose/lib/connection.js:1071:34)\n    at Mongoose.connect (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/node_modules/mongoose/lib/mongoose.js:450:15)\n    at ConnectToDataSource (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/src/db-utils/source.ts:7:20)\n    at InitServer (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/src/index.ts:14:11)\n    at Logger (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/src/index.ts:21:1)\n    at Object.<anonymous> (/Users/satishreddy/Repos/AWS/StoryBoard/dhvani-api/src/index.ts:21:12)"
+}
+2025-03-30 10:20:32 [ERROR]: Server not started 
+2025-03-30 10:20:43 [INFO]: dev 
+2025-03-30 10:20:44 [INFO]: Mongo Data Source Connected! 
+2025-03-30 10:20:44 [INFO]: Listening on http://localhost:3001 

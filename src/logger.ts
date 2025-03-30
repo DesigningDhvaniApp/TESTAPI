@@ -1,7 +1,7 @@
-import * as winston from "winston";
-import * as path from "path";
 import * as fs from "fs";
 import { DateTime } from "luxon";
+import * as path from "path";
+import * as winston from "winston";
 
 // Base logs directory
 const baseLogsDir = path.join(__dirname, "logs");
@@ -23,18 +23,28 @@ if (!fs.existsSync(logsDir)) {
 
 // Define logger
 const Logger = winston.createLogger({
-  level: "info",
+  exceptionHandlers: [
+    new winston.transports.File({
+      filename: path.join(logsDir, "errors.log"), // Unhandled exceptions
+    }),
+  ],
   format: winston.format.combine(
     winston.format.timestamp({
       format: () => DateTime.local().toFormat("yyyy-MM-dd HH:mm:ss"),
     }),
-    winston.format.printf(({ timestamp, level, message, ...meta }) => {
+    winston.format.printf(({ level, message, timestamp, ...meta }) => {
       if (typeof message === "object") {
         return `${timestamp} [${level.toUpperCase()}]: \n${JSON.stringify(message, null, 2)}`;
       }
       return `${timestamp} [${level.toUpperCase()}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""}`;
     }),
   ),
+  level: "info",
+  rejectionHandlers: [
+    new winston.transports.File({
+      filename: path.join(logsDir, "errors.log"), // Unhandled promise rejections
+    }),
+  ],
   transports: [
     new winston.transports.File({
       filename: path.join(logsDir, "logs.log"), // General logs
@@ -48,25 +58,13 @@ const Logger = winston.createLogger({
       // Add Console transport
       format: winston.format.combine(
         winston.format.colorize(), // Add colors for console output
-        winston.format.printf(({ timestamp, level, message, ...meta }) => {
+        winston.format.printf(({ level, message, timestamp, ...meta }) => {
           if (typeof message === "object") {
             return `${timestamp} [${level}]: \n${JSON.stringify(message, null, 2)}`;
           }
-          return `${timestamp} [${level}]: ${message} ${
-            Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""
-          }`;
+          return `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""}`;
         }),
       ),
-    }),
-  ],
-  exceptionHandlers: [
-    new winston.transports.File({
-      filename: path.join(logsDir, "errors.log"), // Unhandled exceptions
-    }),
-  ],
-  rejectionHandlers: [
-    new winston.transports.File({
-      filename: path.join(logsDir, "errors.log"), // Unhandled promise rejections
     }),
   ],
 });

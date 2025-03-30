@@ -3,20 +3,20 @@ export interface Config {
   DB: {
     HOST: string;
   };
+  JWT: {
+    SECRET_EXP: string;
+    SECRET_KEY: string;
+  };
   MAIL: {
+    AUTH_PASSWORD: string;
+    AUTH_USER: string;
+    FROM: string;
     HOST: string;
     PORT: string;
-    AUTH_USER: string;
-    AUTH_PASSWORD: string;
     SECURE: boolean;
-    FROM: string;
-  };
-  JWT: {
-    SECRET_KEY: string;
-    SECRET_EXP: string;
   };
   URLS: {
-    DHVANI_UI: string;
     DHVANI_API: string;
+    DHVANI_UI: string;
   };
 }

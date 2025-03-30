@@ -1,13 +1,14 @@
-import nodemailer, { Transporter, SendMailOptions } from "nodemailer";
-import config from "../config";
 import fs from "fs";
+import nodemailer, { SendMailOptions, Transporter } from "nodemailer";
 import path from "path";
 
+import config from "../config";
+
 export interface MailOptions {
-  to: string | string[];
+  replacements?: Record<string, string>;
   subject: string;
   template: string;
-  replacements?: Record<string, string>;
+  to: string | string[];
 }
 
 class MailService {
@@ -15,16 +16,16 @@ class MailService {
 
   constructor() {
     this.transporter = nodemailer.createTransport({
+      auth: {
+        pass: config.MAIL.AUTH_PASSWORD || "password",
+        user: config.MAIL.AUTH_USER || "username",
+      },
       host: config.MAIL.HOST,
       port: Number(config.MAIL.PORT) || 587,
       secure: config.MAIL.SECURE, // true for 465, false for other ports
-      auth: {
-        user: config.MAIL.AUTH_USER || "username",
-        pass: config.MAIL.AUTH_PASSWORD || "password",
-      },
     });
 
-    this.transporter.verify((error, success) => {
+    this.transporter.verify((error, _) => {
       if (error) {
         console.error("Error connecting to the SMTP server:", error);
       } else {
@@ -38,9 +39,9 @@ class MailService {
 
     const mailOptions: SendMailOptions = {
       from: config.MAIL.FROM,
-      to: options.to,
-      subject: options.subject,
       html: htmlContent,
+      subject: options.subject,
+      to: options.to,
     };
 
     try {
@@ -53,14 +54,8 @@ class MailService {
   }
 }
 
-const fillTemplate = (
-  template: string,
-  replacements: Record<string, string>,
-) => {
-  let templateFile = fs.readFileSync(
-    path.resolve(__dirname, `../templates/${template}.html`),
-    "utf-8",
-  );
+const fillTemplate = (template: string, replacements: Record<string, string> | undefined) => {
+  let templateFile = fs.readFileSync(path.resolve(__dirname, `../templates/${template}.html`), "utf-8");
 
   for (const key in replacements) {
     const regex = new RegExp(`{{${key}}}`, "g");

@@ -1,14 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 
 export class ApiError extends Error {
-  public statusCode: number;
   public details?: any;
+  public statusCode: number;
 
-  constructor(
-    message: string,
-    statusCode = StatusCodes.INTERNAL_SERVER_ERROR,
-    details: any = {},
-  ) {
+  constructor(message: string, statusCode = StatusCodes.INTERNAL_SERVER_ERROR, details: any = {}) {
     super(message);
     this.name = this.constructor.name;
     this.statusCode = statusCode;
@@ -24,9 +20,9 @@ export class BadRequestError extends ApiError {
   }
 }
 
-export class UnauthorizedError extends ApiError {
-  constructor(message = "Unauthorized", details: any = {}) {
-    super(message, StatusCodes.UNAUTHORIZED, details);
+export class ConflictError extends ApiError {
+  constructor(message = "Conflict", details: any = {}) {
+    super(message, StatusCodes.CONFLICT, details);
   }
 }
 
@@ -36,8 +32,8 @@ export class NotFoundError extends ApiError {
   }
 }
 
-export class ConflictError extends ApiError {
-  constructor(message = "Conflict", details: any = {}) {
-    super(message, StatusCodes.CONFLICT, details);
+export class UnauthorizedError extends ApiError {
+  constructor(message = "Unauthorized", details: any = {}) {
+    super(message, StatusCodes.UNAUTHORIZED, details);
   }
 }

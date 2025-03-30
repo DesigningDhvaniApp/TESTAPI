@@ -1,7 +1,8 @@
-import express from "express";
 import cors from "cors";
-import storyBoardRoutes from "./routes/stories.routes";
+import express from "express";
+
 import { globalErrorHandler } from "./middleware/globalErrorHandler";
+import storyBoardRoutes from "./routes/stories.routes";
 
 const app = express();
 
@@ -11,6 +12,6 @@ app.use(cors());
 app.use("/api/stories", storyBoardRoutes);
 
 // Global error handler at the end
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 export default app;

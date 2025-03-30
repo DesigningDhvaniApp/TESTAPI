@@ -2,20 +2,20 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface IStory extends Document {
   _id: mongoose.Types.ObjectId;
-  storyId: number;
-  title: string;
   description: string;
   status: string;
+  storyId: number;
+  title: string;
   type: string;
 }
 
-const StorySchema: Schema<IStory> = new Schema(
+const StorySchema = new Schema<IStory>(
   {
-    storyId: { type: Number, required: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    status: { type: String, required: true },
-    type: { type: String, required: true }
+    description: { required: true, type: String },
+    status: { required: true, type: String },
+    storyId: { required: true, type: Number },
+    title: { required: true, type: String },
+    type: { required: true, type: String },
   },
   { timestamps: true },
 );
