@@ -1,4 +1,4 @@
-import { createStoryHandler, findAllStories, updateStoryHandler } from "#handlers/stories.handler";
+import { addCommentHandler, createStoryHandler, findAllStories, updateStoryHandler } from "#handlers/stories.handler";
 import { IStory } from "#models/Story";
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
@@ -27,6 +27,17 @@ export const updateStory = async (req: Request, res: Response, next: NextFunctio
     const body = req.body;
     const response = await updateStoryHandler(body, id);
     return res.status(StatusCodes.OK).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addComment = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = req.params.id;
+    const body = req.body;
+    await addCommentHandler(body.text as string, id);
+    return res.status(StatusCodes.OK).json("");
   } catch (error) {
     next(error);
   }

@@ -5,17 +5,6 @@ export const createStoryHandler = async (input: Partial<IStory>) => {
   input.type = "user_story";
   const story = new Story(input);
   await story.save();
-
-  // return mailService.sendEmail({
-  //   to: "satishreddysr777@gmail.com",
-  //   subject: "",
-  //   template: "welcome",
-  //   replacements: {
-  //     name: 'SATISH KUMAR REDDY TARAPAREDDY'
-  //   },
-  // });
-
-  // return await saveMemberAndPayment(member, payment);
 };
 
 export const findAllStories = async () => {
@@ -27,4 +16,13 @@ export const updateStoryHandler = async (body: any, id: string) => {
   const { assignedTo, description, status, title } = body;
   const updatedStory = await Story.findByIdAndUpdate(id, { assignedTo, description, status, title }, { new: true });
   return updatedStory;
+};
+
+export const addCommentHandler = async (comment: string, id: string) => {
+  const story = await Story.findById(id);
+  console.log(story);
+  if (story) {
+    story.comments.push(comment);
+    await story.save();
+  }
 };

@@ -6,6 +6,7 @@ export interface IStory extends Document {
   status: string;
   storyId: number;
   title: string;
+  comments: string[];
   type: string;
 }
 
@@ -16,6 +17,7 @@ const StorySchema = new Schema<IStory>(
     storyId: { required: true, type: Number },
     title: { required: true, type: String },
     type: { required: true, type: String },
+    comments: [{ required: true, type: String }],
   },
   { timestamps: true },
 );
