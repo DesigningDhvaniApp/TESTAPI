@@ -1,13 +1,14 @@
 import { IStory, Story } from "#models/Story";
 
 export const createStoryHandler = async (input: Partial<IStory>) => {
-  input.storyId = 87954985;
+  const stories = await findAllStories();
+  input.storyId = 1000 + stories.length;
   input.type = "user_story";
   const story = new Story(input);
   await story.save();
 };
 
-export const findAllStories = async () => {
+export const findAllStories = async (): Promise<IStory[]> => {
   const stories = await Story.find({});
   return stories;
 };
